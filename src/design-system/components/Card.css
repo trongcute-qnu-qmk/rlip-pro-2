@@ -2,7 +2,9 @@
   border-radius: var(--radius-lg);
   padding: var(--spacing-4);
   color: var(--color-text-primary);
-  transition: all 0.2s ease;
+  transition: all var(--duration-fast) ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .rlip-card.variant-default {
@@ -13,12 +15,36 @@
 
 .rlip-card.variant-glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: var(--glass-border);
   box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 768px) {
+  .rlip-card.variant-glass {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
 }
 
 .rlip-card.variant-outline {
   background-color: transparent;
   border: 1px dashed var(--color-border-light);
+}
+
+/* Glow levels */
+.rlip-card.glow-cyan {
+  box-shadow: var(--glow-cyan);
+  border-color: rgba(34, 211, 238, 0.5);
+}
+
+.rlip-card.glow-danger {
+  box-shadow: var(--glow-danger);
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+.rlip-card.glow-bull {
+  box-shadow: var(--glow-bull);
+  border-color: rgba(16, 185, 129, 0.5);
 }

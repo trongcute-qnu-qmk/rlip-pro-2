@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { AgentCard } from '../../../design-system/domain/AgentCard';
 import { Card } from '../../../design-system/components/Card';
-import { Badge } from '../../../design-system/components/Badge';
 import { EvidenceExplorer } from './EvidenceExplorer';
 import { ExplainabilityPanel } from './ExplainabilityPanel';
-import { DecisionMemory } from './DecisionMemory';
-import { HumanDecisionPanel } from './HumanDecisionPanel';
 import { pipelineService } from '../../../services/InvestmentPipelineService';
 import type { AIAnalysisResult } from '../../../services/InvestmentPipelineService';
+import { SystemActivityFeed } from './SystemActivityFeed';
 
 export const AIInvestmentWarRoom: React.FC = () => {
   const [activeClaim, setActiveClaim] = useState<string | null>(null);
@@ -49,119 +47,179 @@ export const AIInvestmentWarRoom: React.FC = () => {
   ];
 
   return (
-    <div className="p-6 max-w-7xl mx-auto min-h-screen">
+    <div className="p-6 max-w-7xl mx-auto min-h-screen relative">
       <div className="text-center mb-10">
-        <h1 className="text-3xl font-display font-bold text-primary mb-2">INVESTMENT WAR ROOM</h1>
-        <p className="text-secondary text-sm">AI Committee Debate in Progress</p>
-        <form onSubmit={handleSearch} className="mt-6 flex justify-center items-center gap-2">
-          <input 
-            type="text" 
-            value={ticker} 
-            onChange={e => setTicker(e.target.value)}
-            className="bg-background-elevated border border-border rounded-md px-4 py-2 focus:outline-none focus:border-accent-blue"
-            placeholder="Enter Ticker (e.g. FPT)"
-          />
-          <button type="submit" disabled={loading} className="bg-accent-blue text-white px-4 py-2 rounded-md hover:bg-opacity-80 disabled:opacity-50 transition-colors">
-            {loading ? 'Analyzing...' : 'Analyze'}
+        <h1 className="text-4xl font-display font-bold text-primary mb-2 flex items-center justify-center gap-3">
+          <span className="text-accent-cyan">RLIP</span> AI WAR ROOM
+        </h1>
+        <div className="flex items-center justify-center gap-2 text-secondary text-sm mb-6">
+          <span className="w-2 h-2 rounded-full bg-signal-bull" style={{ animation: 'aiPulse 2s infinite' }}></span>
+          <span className="tracking-widest uppercase text-xs">Mission Control Active</span>
+        </div>
+
+        <form onSubmit={handleSearch} className="flex justify-center items-center gap-2">
+          <div className="relative">
+            <input 
+              type="text" 
+              value={ticker} 
+              onChange={e => setTicker(e.target.value)}
+              className="bg-background-elevated bg-opacity-50 backdrop-blur-md border border-border rounded-md px-6 py-3 w-64 text-center text-xl font-bold uppercase focus:outline-none focus:border-accent-cyan focus:shadow-[0_0_15px_rgba(34,211,238,0.2)] transition-all"
+              placeholder="ENTER TICKER"
+            />
+          </div>
+          <button type="submit" disabled={loading} className="bg-accent-cyan bg-opacity-20 text-accent-cyan border border-accent-cyan border-opacity-50 font-bold px-6 py-3 rounded-md hover:bg-opacity-30 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] disabled:opacity-50 transition-all uppercase tracking-widest">
+            {loading ? 'Scanning...' : 'Execute'}
           </button>
         </form>
       </div>
 
       {error && (
-        <div className="bg-signal-bear bg-opacity-10 border border-signal-bear text-signal-bear p-4 rounded-md mb-8 text-center max-w-2xl mx-auto">
-          <p className="font-bold">Analysis Failed</p>
+        <div className="bg-signal-bear bg-opacity-10 border border-signal-bear text-signal-bear p-4 rounded-md mb-8 text-center max-w-2xl mx-auto animate-fade-in-up glow-danger">
+          <p className="font-bold">SYSTEM ALERT: ANALYSIS FAILED</p>
           <p className="text-sm">{error}</p>
         </div>
       )}
 
-      {/* 3-Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* MISSION CONTROL LAYOUT */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 relative z-10">
         
-        {/* LEFT COLUMN: BULL CASE */}
+        {/* TOP LEFT: AI AGENT COUNCIL */}
         <div className="space-y-4">
           <div className="flex items-center justify-between border-b border-border pb-2 mb-4">
-            <h2 className="text-lg font-semibold text-signal-bull uppercase tracking-widest">Bull Case</h2>
-            <Badge variant="bull">Strong</Badge>
+            <h2 className="text-sm font-semibold text-primary uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent-cyan">◆</span> AI Agent Council
+            </h2>
           </div>
           
-          {analysis && (
-            <div onClick={() => handleClaimClick(analysis.bullCase)} className="cursor-pointer transition-transform hover:scale-[1.02]">
+          <div className={loading ? "opacity-50 pointer-events-none" : ""}>
+            <div onClick={() => analysis && handleClaimClick(analysis.bullCase)}>
               <AgentCard 
-                agentName="Financial Agent" 
-                role="Quantitative Analysis" 
+                agentName="Warren Buffett AI" 
+                role="Fundamental Analysis Engine" 
                 stance="BULL" 
-                conclusion={analysis.bullCase} 
+                conclusion={analysis ? analysis.bullCase : "Awaiting ticker input to evaluate intrinsic value and economic moat."} 
+                confidence={92}
               />
             </div>
-          )}
-
-          {activeClaim && (
-            <div className="animate-in fade-in slide-in-from-top-4 duration-300">
-              <EvidenceExplorer claim={activeClaim} evidences={mockEvidence} />
-            </div>
-          )}
+            {activeClaim && activeClaim === analysis?.bullCase && (
+              <div className="animate-fade-in-up">
+                <EvidenceExplorer claim={activeClaim} evidences={mockEvidence} />
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* MIDDLE COLUMN: VERDICT (DECISION ENGINE) */}
-        <div className="space-y-4 lg:mt-0 mt-8">
+        {/* TOP RIGHT: MARKET RADAR */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between border-b border-border pb-2 mb-4">
+            <h2 className="text-sm font-semibold text-primary uppercase tracking-widest flex items-center gap-2">
+              <span className="text-accent-purple">◆</span> Market Radar
+            </h2>
+          </div>
+          <Card variant="glass" className="h-[200px] flex flex-col items-center justify-center relative overflow-hidden group">
+            {/* Radar Animation */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-40 transition-opacity">
+               <div className="w-40 h-40 rounded-full border border-accent-cyan border-opacity-30 relative">
+                  <div className="absolute top-1/2 left-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent to-accent-cyan origin-left" style={{ animation: 'radarScan 8s linear infinite' }}></div>
+                  <div className="absolute inset-0 rounded-full border border-accent-cyan border-opacity-10 scale-150"></div>
+               </div>
+            </div>
+            <div className="relative z-10 text-center">
+              <div className="text-xs text-secondary mb-2">Market Sentiment</div>
+              <div className="text-3xl font-bold text-signal-bull glow-bull">GREED</div>
+              <div className="text-xs text-secondary mt-2">Momentum: <span className="text-primary">+2.4%</span></div>
+            </div>
+          </Card>
+        </div>
+
+        {/* MIDDLE SPAN: PORTFOLIO INTELLIGENCE */}
+        <div className="lg:col-span-2 space-y-4 mt-4">
+          <div className="flex items-center justify-between border-b border-border pb-2 mb-4">
+            <h2 className="text-sm font-semibold text-primary uppercase tracking-widest flex items-center gap-2">
+              <span className="text-signal-warning">◆</span> Portfolio Intelligence
+            </h2>
+          </div>
+          <Card variant="glass" className="p-6">
+            <div className="flex items-center justify-center h-24 border border-dashed border-border-light rounded bg-black bg-opacity-20 text-secondary text-sm">
+              [UNIVERSE MAP PLACEHOLDER - Visualizing VN30, US Stocks, Crypto]
+            </div>
+          </Card>
+        </div>
+
+        {/* BOTTOM LEFT: RISK ENGINE */}
+        <div className="space-y-4 mt-4">
+          <div className="flex items-center justify-between border-b border-border pb-2 mb-4">
+            <h2 className="text-sm font-semibold text-signal-bear uppercase tracking-widest flex items-center gap-2">
+              <span className="text-signal-bear">◆</span> Risk AI Engine
+            </h2>
+          </div>
+          <div className={loading ? "opacity-50 pointer-events-none" : ""}>
+            <div onClick={() => analysis && handleClaimClick(analysis.bearCase)}>
+              <AgentCard 
+                agentName="Ray Dalio AI" 
+                role="Macro & Vulnerability Analysis" 
+                stance="BEAR" 
+                conclusion={analysis ? analysis.bearCase : "Monitoring macroeconomic headwinds and systemic vulnerabilities."} 
+                confidence={88}
+              />
+            </div>
+            {activeClaim && activeClaim === analysis?.bearCase && (
+              <div className="animate-fade-in-up">
+                <EvidenceExplorer claim={activeClaim} evidences={mockEvidence} />
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* BOTTOM RIGHT: DECISION ENGINE */}
+        <div className="space-y-4 mt-4">
           <div className="flex items-center justify-center border-b border-border pb-2 mb-4">
-            <h2 className="text-lg font-semibold text-primary uppercase tracking-widest">Committee Verdict</h2>
+            <h2 className="text-sm font-semibold text-primary uppercase tracking-widest">Committee Verdict</h2>
           </div>
           
-          <Card variant="glass" className="text-center p-6 border-accent-blue border-opacity-30">
+          <Card variant="glass" glow={analysis?.decision === 'BUY' ? 'cyan' : analysis?.decision === 'SELL' ? 'danger' : 'none'} className="text-center p-6 min-h-[300px] flex flex-col justify-center">
             {loading ? (
-              <p className="text-secondary py-10">Running ML Models...</p>
+              <div className="py-10 animate-pulse">
+                <p className="text-accent-cyan text-sm uppercase tracking-widest font-bold mb-2">AI Neural Network Synchronizing...</p>
+                <div className="w-full bg-black bg-opacity-50 h-2 rounded-full overflow-hidden max-w-xs mx-auto">
+                  <div className="bg-accent-cyan h-full" style={{ width: '87%', animation: 'aiPulse 1s infinite' }}></div>
+                </div>
+              </div>
             ) : analysis ? (
-              <>
-                <h3 className={`text-4xl font-bold mb-2 ${analysis.decision === 'BUY' ? 'text-signal-bull' : analysis.decision === 'SELL' ? 'text-signal-bear' : 'text-primary'}`}>
+              <div className="animate-fade-in-up">
+                <h3 className={`text-5xl font-bold mb-2 tracking-wider ${analysis.decision === 'BUY' ? 'text-signal-bull' : analysis.decision === 'SELL' ? 'text-signal-bear' : 'text-primary'}`}>
                   {analysis.decision}
                 </h3>
-                <p className="text-sm text-secondary mb-6">Calculated ROIC: {(analysis.roic * 100).toFixed(2)}%</p>
+                <p className="text-sm text-secondary mb-6 border-b border-border pb-4">Calculated Target ROIC: {(analysis.roic * 100).toFixed(2)}%</p>
                 
                 <ExplainabilityPanel 
                   totalScore={analysis.score} 
                   factors={[
-                    { name: 'Capital Efficiency (ROIC)', score: Math.min(25, analysis.roic * 100), max: 25 },
+                    { name: 'Capital Efficiency', score: Math.min(25, analysis.roic * 100), max: 25 },
                     { name: 'Financial Health', score: 23, max: 25 },
                     { name: 'Management', score: 18, max: 20 },
                     { name: 'Valuation', score: 15, max: 20 },
                     { name: 'Macro', score: 7, max: 10 }
                   ]} 
                 />
-              </>
-            ) : null}
-            
-            <div className="mt-6 p-4 bg-[rgba(16,185,129,0.05)] border border-[rgba(16,185,129,0.2)] rounded-md">
-              <h4 className="text-xs font-bold text-signal-bull uppercase tracking-wider mb-1">Recommended Position Size</h4>
-              <p className="text-2xl font-semibold text-primary">8.0% NAV</p>
-            </div>
+                <div className="mt-6 p-4 bg-[rgba(34,211,238,0.05)] border border-[rgba(34,211,238,0.2)] rounded-md">
+                  <h4 className="text-[10px] font-bold text-accent-cyan uppercase tracking-wider mb-1">Recommended Position Size</h4>
+                  <p className="text-2xl font-semibold text-primary">8.0% NAV</p>
+                </div>
+              </div>
+            ) : (
+              <div className="py-10 text-secondary">
+                <div className="text-4xl mb-4">🚀</div>
+                <p className="font-bold text-primary mb-1">Awaiting Market Signal</p>
+                <p className="text-sm">AI engine is monitoring 2,341 companies in real-time.</p>
+              </div>
+            )}
           </Card>
-
-          {/* Epic 8.2.1: Human in the loop & Memory */}
-          <HumanDecisionPanel />
-          <DecisionMemory />
-        </div>
-
-        {/* RIGHT COLUMN: BEAR CASE */}
-        <div className="space-y-4 lg:mt-0 mt-8">
-          <div className="flex items-center justify-between border-b border-border pb-2 mb-4">
-            <h2 className="text-lg font-semibold text-signal-bear uppercase tracking-widest">Bear Case</h2>
-            <Badge variant="bear">Moderate</Badge>
-          </div>
-          
-          {analysis && (
-            <div onClick={() => handleClaimClick(analysis.bearCase)} className="cursor-pointer transition-transform hover:scale-[1.02]">
-              <AgentCard 
-                agentName="Risk Agent" 
-                role="Risk & Vulnerability Analysis" 
-                stance="BEAR" 
-                conclusion={analysis.bearCase} 
-              />
-            </div>
-          )}
         </div>
 
       </div>
+
+      <SystemActivityFeed />
     </div>
   );
 };

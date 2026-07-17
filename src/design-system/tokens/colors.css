@@ -1,28 +1,47 @@
 /* src/design-system/tokens/colors.css */
 :root {
-  --color-bg-base: #09090b;
-  --color-bg-surface: #18181b;
-  --color-bg-surface-hover: #27272a;
+  /* Background Colors */
+  --color-bg-base: #050816; /* Midnight Navy */
+  --color-bg-surface: rgba(15, 23, 42, 0.75); /* Deep Slate / Carbon Black */
+  --color-bg-surface-hover: rgba(30, 41, 59, 0.85);
   
-  --color-text-primary: #f4f4f5;
-  --color-text-secondary: #a1a1aa;
-  --color-text-muted: #71717a;
+  /* Text Colors */
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
   
+  /* Accents */
+  --color-accent-purple: #7C3AED; /* Nebula Purple */
   --color-accent-blue: #3b82f6;
-  --color-accent-blue-hover: #2563eb;
+  --color-accent-cyan: #22D3EE; /* AI Cyan */
   
+  /* Signals */
   --color-signal-bull: #10b981;
   --color-signal-bull-bg: rgba(16, 185, 129, 0.1);
   
-  --color-signal-bear: #f43f5e;
-  --color-signal-bear-bg: rgba(244, 63, 94, 0.1);
+  --color-signal-bear: #ef4444;
+  --color-signal-bear-bg: rgba(239, 68, 68, 0.1);
   
   --color-signal-warning: #f59e0b;
   --color-signal-warning-bg: rgba(245, 158, 11, 0.1);
   
-  --color-border: #27272a;
-  --color-border-light: #3f3f46;
+  /* Borders */
+  --color-border: rgba(51, 65, 85, 0.5);
+  --color-border-light: rgba(71, 85, 105, 0.6);
 
-  --glass-bg: rgba(24, 24, 27, 0.6);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.05);
+  /* Glassmorphism */
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+
+  /* Glow Tokens */
+  --glow-cyan: 0 0 30px rgba(34, 211, 238, 0.35);
+  --glow-purple: 0 0 40px rgba(124, 58, 237, 0.3);
+  --glow-danger: 0 0 35px rgba(239, 68, 68, 0.4);
+  --glow-bull: 0 0 30px rgba(16, 185, 129, 0.3);
+
+  /* Animation Tokens */
+  --duration-fast: 200ms;
+  --duration-normal: 500ms;
+  --duration-slow: 1200ms;
 }
+
