@@ -3,7 +3,7 @@ import { spawn } from 'child_process';
 
 async function check() {
   console.log("Starting server...");
-  const server = spawn('npm', ['run', 'preview']);
+  const server = spawn('npm.cmd', ['run', 'preview'], { shell: true });
   
   // Wait a bit for server to start
   await new Promise(r => setTimeout(r, 2000));
