@@ -1,30 +1,23 @@
-import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
-import { ProtectedRoute, PublicRoute } from './ProtectedRoute';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { PublicRoute } from './ProtectedRoute';
 import { AuthForm } from '@/features/auth/components/AuthForm';
-import { WelcomeOnboarding } from '@/features/auth/components/WelcomeOnboarding';
-
 import { AIInvestmentWarRoom } from '@/features/war-room/components/AIInvestmentWarRoom';
-
-import { AppShell } from '@/core/layout/AppShell';
-import { InvestmentCommandCenter } from '@/features/command-center/components/InvestmentCommandCenter';
-
-import { PortfolioOS } from '@/features/portfolio/components/PortfolioOS';
-import { CompanyResearchPage } from '@/features/research/components/CompanyResearchPage';
-
-// Temporary placeholder components
-const LandingPage = () => (
-  <div className="flex flex-col items-center justify-center min-h-screen p-10 bg-surface">
-    <h1 className="text-4xl font-bold mb-4">RLIP PRO</h1>
-    <Link to="/login" className="px-6 py-2 bg-primary text-white rounded">Đăng nhập</Link>
-  </div>
-);
 
 export const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<LandingPage />} />
+        {/* MVP Public Demo Route */}
+        <Route path="/" element={
+          <div className="min-h-screen bg-background text-primary font-sans">
+            <header className="p-4 border-b border-border bg-surface text-center">
+              <h1 className="text-xl font-bold text-accent-blue">RLIP PRO 2.0 - AI Investment Research Platform</h1>
+            </header>
+            <main>
+              <AIInvestmentWarRoom />
+            </main>
+          </div>
+        } />
         
         {/* Auth Routes */}
         <Route 
@@ -37,23 +30,6 @@ export const AppRouter = () => {
             </PublicRoute>
           } 
         />
-        
-        <Route 
-          path="/onboarding" 
-          element={
-            <ProtectedRoute>
-              <WelcomeOnboarding />
-            </ProtectedRoute>
-          } 
-        />
-
-        {/* Private Shell Routes */}
-        <Route element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
-          <Route path="/dashboard" element={<InvestmentCommandCenter />} />
-          <Route path="/war-room" element={<AIInvestmentWarRoom />} />
-          <Route path="/portfolio" element={<PortfolioOS />} />
-          <Route path="/research" element={<CompanyResearchPage />} />
-        </Route>
 
         {/* Catch all */}
         <Route path="*" element={<Navigate to="/" replace />} />

@@ -13,6 +13,7 @@ export const AIInvestmentWarRoom: React.FC = () => {
   const [activeClaim, setActiveClaim] = useState<string | null>(null);
   const [ticker, setTicker] = useState('FPT');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [analysis, setAnalysis] = useState<AIAnalysisResult | null>(null);
 
   useEffect(() => {
@@ -21,11 +22,14 @@ export const AIInvestmentWarRoom: React.FC = () => {
 
   const runAnalysis = async (targetTicker: string) => {
     setLoading(true);
+    setError(null);
+    setAnalysis(null);
     try {
       const result = await pipelineService.analyzeTicker(targetTicker);
       setAnalysis(result);
-    } catch (error) {
-      console.error("Failed to run analysis:", error);
+    } catch (err: any) {
+      console.error("Failed to run analysis:", err);
+      setError(err.message || 'Failed to analyze ticker. Please check your network or try another ticker.');
     } finally {
       setLoading(false);
     }
@@ -62,6 +66,13 @@ export const AIInvestmentWarRoom: React.FC = () => {
           </button>
         </form>
       </div>
+
+      {error && (
+        <div className="bg-signal-bear bg-opacity-10 border border-signal-bear text-signal-bear p-4 rounded-md mb-8 text-center max-w-2xl mx-auto">
+          <p className="font-bold">Analysis Failed</p>
+          <p className="text-sm">{error}</p>
+        </div>
+      )}
 
       {/* 3-Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

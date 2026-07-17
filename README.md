@@ -1,32 +1,26 @@
-# React + TypeScript + Vite
+# RLIP PRO 2.0 - AI Investment Research Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Đây là phiên bản MVP (Minimum Viable Product) của RLIP PRO 2.0.
 
-Currently, two official plugins are available:
+## 🚀 Tính năng hiện tại
+- Nhập Ticker (mã chứng khoán)
+- Kéo dữ liệu tài chính tự động (hiện tại demo fallback 2023)
+- Phân tích Feature Engineering (Tính ROIC)
+- AI đưa ra luận điểm Bull/Bear case và điểm số đầu tư.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📦 Kiến trúc
+- **Frontend:** React + Vite
+- **Backend:** Vercel Serverless Functions (`api/analyze.ts`)
+- **Database:** Supabase PostgreSQL (lưu `analysis_history`)
 
-## React Compiler
+## 🛠 Hướng dẫn Deploy lên Vercel
+Dự án đã được setup sẵn cho Vercel. 
+1. Push code này lên một repository trên Github.
+2. Tạo Project mới trên Vercel và import repo Github vừa tạo.
+3. Trong phần **Environment Variables**, thêm các biến sau:
+   - `VITE_SUPABASE_URL` = <Supabase Project URL>
+   - `VITE_SUPABASE_ANON_KEY` = <Supabase Anon Key>
+4. Bấm **Deploy**.
+5. Vercel sẽ tự động build `npm run build` và deploy API Function cũng như thư mục `dist` của React.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+> **Lưu ý:** Để database hoạt động, nhớ chạy file script `supabase/migrations/01_init.sql` trên tài khoản Supabase của bạn.
