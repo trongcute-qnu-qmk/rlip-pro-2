@@ -1,0 +1,24 @@
+.rlip-card {
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  color: var(--color-text-primary);
+  transition: all 0.2s ease;
+}
+
+.rlip-card.variant-default {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.rlip-card.variant-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: var(--glass-border);
+  box-shadow: var(--shadow-lg);
+}
+
+.rlip-card.variant-outline {
+  background-color: transparent;
+  border: 1px dashed var(--color-border-light);
+}

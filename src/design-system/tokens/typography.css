@@ -1,0 +1,21 @@
+/* src/design-system/tokens/typography.css */
+:root {
+  --font-display: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --text-h1: 32px;
+  --text-h2: 24px;
+  --text-h3: 18px;
+  
+  --text-metric: 48px;
+  
+  --text-base: 16px;
+  --text-sm: 14px;
+  --text-caption: 12px;
+  
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+}

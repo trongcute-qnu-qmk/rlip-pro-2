@@ -1,0 +1,14 @@
+@import './design-system/tokens/colors.css';
+@import './design-system/tokens/spacing.css';
+@import './design-system/tokens/typography.css';
+@import './design-system/tokens/motion.css';
+
+/* ... any existing index.css rules (we'll just replace the whole file for the new design system) ... */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}

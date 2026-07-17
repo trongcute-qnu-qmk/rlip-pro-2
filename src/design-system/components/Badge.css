@@ -1,0 +1,41 @@
+.rlip-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.125rem 0.5rem;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  border-radius: 9999px; /* Pill shape */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rlip-badge.variant-bull {
+  background-color: var(--color-signal-bull-bg);
+  color: var(--color-signal-bull);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.rlip-badge.variant-bear {
+  background-color: var(--color-signal-bear-bg);
+  color: var(--color-signal-bear);
+  border: 1px solid rgba(244, 63, 94, 0.2);
+}
+
+.rlip-badge.variant-warning {
+  background-color: var(--color-signal-warning-bg);
+  color: var(--color-signal-warning);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.rlip-badge.variant-neutral {
+  background-color: var(--color-bg-surface-hover);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.rlip-badge.variant-outline {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}

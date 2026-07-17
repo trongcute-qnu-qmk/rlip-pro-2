@@ -1,0 +1,28 @@
+/* src/design-system/tokens/colors.css */
+:root {
+  --color-bg-base: #09090b;
+  --color-bg-surface: #18181b;
+  --color-bg-surface-hover: #27272a;
+  
+  --color-text-primary: #f4f4f5;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+  
+  --color-accent-blue: #3b82f6;
+  --color-accent-blue-hover: #2563eb;
+  
+  --color-signal-bull: #10b981;
+  --color-signal-bull-bg: rgba(16, 185, 129, 0.1);
+  
+  --color-signal-bear: #f43f5e;
+  --color-signal-bear-bg: rgba(244, 63, 94, 0.1);
+  
+  --color-signal-warning: #f59e0b;
+  --color-signal-warning-bg: rgba(245, 158, 11, 0.1);
+  
+  --color-border: #27272a;
+  --color-border-light: #3f3f46;
+
+  --glass-bg: rgba(24, 24, 27, 0.6);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.05);
+}
